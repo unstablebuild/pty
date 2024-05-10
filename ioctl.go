@@ -5,8 +5,8 @@ package pty
 
 import "os"
 
-func ioctl(f *os.File, cmd, ptr uintptr) error {
-	return ioctlInner(f.Fd(), cmd, ptr) // Fall back to blocking io.
+func ioctl(fd uintptr, cmd, ptr uintptr) error {
+	return ioctlInner(fd, cmd, ptr) // Fall back to blocking io.
 }
 
 // NOTE: Unused. Keeping for reference.

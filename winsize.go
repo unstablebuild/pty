@@ -6,17 +6,17 @@ import "os"
 // in a signal handler for syscall.SIGWINCH to automatically resize the tty when
 // the pty receives a window size change notification.
 func InheritSize(pty, tty *os.File) error {
-	size, err := GetsizeFull(pty)
+	size, err := GetsizeFull(pty.Fd())
 	if err != nil {
 		return err
 	}
-	return Setsize(tty, size)
+	return Setsize(tty.Fd(), size)
 }
 
 // Getsize returns the number of rows (lines) and cols (positions
 // in each line) in terminal t.
 func Getsize(t *os.File) (rows, cols int, err error) {
-	ws, err := GetsizeFull(t)
+	ws, err := GetsizeFull(t.Fd())
 	if err != nil {
 		return 0, 0, err
 	}

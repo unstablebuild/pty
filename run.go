@@ -32,7 +32,7 @@ func StartWithAttrs(c *exec.Cmd, sz *Winsize, attrs *syscall.SysProcAttr) (*os.F
 	defer func() { _ = tty.Close() }() // Best effort.
 
 	if sz != nil {
-		if err := Setsize(pty, sz); err != nil {
+		if err := Setsize(pty.Fd(), sz); err != nil {
 			_ = pty.Close() // Best effort.
 			return nil, err
 		}

@@ -69,10 +69,10 @@ func TestGetsizeFull(t *testing.T) {
 
 	pty, tty := openClose(t)
 
-	psize, err := GetsizeFull(pty)
+	psize, err := GetsizeFull(pty.Fd())
 	noError(t, err, "Unexpected error from pty GetsizeFull")
 
-	tsize, err := GetsizeFull(tty)
+	tsize, err := GetsizeFull(tty.Fd())
 	noError(t, err, "Unexpected error from tty GetsizeFull")
 
 	assert(t, psize.X, tsize.X, "X from GetsizeFull on pty and tty should match")
@@ -86,7 +86,7 @@ func TestSetsize(t *testing.T) {
 
 	pty, tty := openClose(t)
 
-	psize, err := GetsizeFull(pty)
+	psize, err := GetsizeFull(pty.Fd())
 	noError(t, err, "Unexpected error from pty GetsizeFull")
 
 	psize.X++
@@ -94,9 +94,9 @@ func TestSetsize(t *testing.T) {
 	psize.Rows++
 	psize.Cols++
 
-	noError(t, Setsize(tty, psize), "Unexpected error from Setsize")
+	noError(t, Setsize(tty.Fd(), psize), "Unexpected error from Setsize")
 
-	tsize, err := GetsizeFull(tty)
+	tsize, err := GetsizeFull(tty.Fd())
 	noError(t, err, "Unexpected error from tty GetsizeFull")
 
 	assert(t, psize.X, tsize.X, "Unexpected Getsize X result after Setsize")

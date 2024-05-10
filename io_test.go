@@ -90,7 +90,7 @@ func prepare(t *testing.T) (ptmx *os.File, done func()) {
 	t.Helper()
 
 	if runtime.GOOS == "darwin" {
-		t.Log("creack/pty uses blocking i/o on darwin intentionally:")
+		t.Log("unstablebuild/pty uses blocking i/o on darwin intentionally:")
 		t.Log("> https://github.com/creack/pty/issues/52")
 		t.Log("> https://github.com/creack/pty/pull/53")
 		t.Log("> https://github.com/golang/go/issues/22099")

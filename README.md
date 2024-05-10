@@ -5,7 +5,7 @@ Pty is a Go package for using unix pseudo-terminals.
 ## Install
 
 ```sh
-go get github.com/creack/pty
+go get github.com/unstablebuild/pty
 ```
 
 ## Examples
@@ -22,7 +22,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/creack/pty"
+	"github.com/unstablebuild/pty"
 )
 
 func main() {
@@ -55,7 +55,7 @@ import (
         "os/signal"
         "syscall"
 
-        "github.com/creack/pty"
+        "github.com/unstablebuild/pty"
         "golang.org/x/term"
 )
 

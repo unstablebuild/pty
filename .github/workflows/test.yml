@@ -58,3 +58,29 @@ jobs:
       - if: ${{ matrix.go_version != '1.6.x' }}
         name: Many Tests
         run: go test -count=100 -timeout=30s
+
+  crosscompile:
+    name: Run ./test_crosscompile.sh
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Run ./test_crosscompile.sh
+        run: ./test_crosscompile.sh
+
+  notify:
+    if: always()
+    needs:
+      - test
+      - crosscompile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack notification with workflow result.
+        uses: ScribeMD/slack-templates@0.6.38
+        with:
+          bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+          channel-id: C0727A4EXGB 
+          template: result
+          results: "${{ join(needs.*.result, ' ') }}"
